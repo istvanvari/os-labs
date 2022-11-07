@@ -1,156 +1,57 @@
-﻿
-**Державний вищий навчальний заклад<br>
+﻿**Державний вищий навчальний заклад<br>
 Ужгородський національний університет<br>
 Факультет інформаційних технологій**
 
 
+**ЛАБОРАТОРНА РОБОТА № 4**
 
-**ЛАБОРАТОРНА РОБОТА № 3**
-
-**Тема:** Docker
-
-
-
-
-
-
-
-
-
-
-Виконав студент ІII курсу
-Напрям: «Інженерія програмного забезпечення» 
+**Тема:** Terraform
+<br><br><br><br>
+Виконав студент ІII курсу<br>
+Напрям: «Інженерія програмного забезпечення» <br>
 Варі Іштван Степанович
+<br><br><br>
 
+Create terraform scenario for provisioning infrastructure on GCP (or AWS) cloud Requirement 
 
+1. Create one instance (image: ubuntu 20.04) 
+
+2. Allow HTTP/HTTPS traffic on a NIC 
+
+3. Provision one SSH public key for created instance 
+
+4. Install Web Server (Apache HTTP Server / NGINX HTTP Server) via bash scenario
 
 **Хід роботи**
 
-План:
+1. Provision one SSH public key for created instance 
 
-1) Використання готових Docker Images.
-1) Використання Docker Compose.
-1) Створення HTML сторінки та занесення її в Docker Image. Залити даний Docker Image на Docker Hub.
-1) Скачати Docker Image когось із групи і розвернути в себе контейнер з HTML сторінкою на порті 8086 ззовні.
+There is one little thing we need to deal with on AWS manually. We need to **create a new IAM user for Terraform.**
 
----
+This can be done in amazon console Services> Security, Identity, & Compliance > IAM
 
-1. Використання готових Docker Images.
+![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.001.png)
 
-Я зробив pull wordpress
+Select users and Add users.
 
-![](img/001.png)
+![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.002.png)
 
+As a result we get a username, public key and secret key which we save, and will use later.
 
 
+2. Allow HTTP traffic
 
+` `![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.003.png)
 
-Створив файл stack.yml із налаштуваннями wordpress із dockerhub
+3. Create one instance (image: ubuntu 20.04) 
 
-![](img/002.png)
+![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.004.png)
 
-Виконав команду docker compose up який будує image
+4. Bash scenario to Install Web Server (NGINX HTTP Server)
 
-docker-compose -f stack.yml up
+![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.005.png)
 
-![](img/003.png)
+Final project structure
 
-Сайт wordpress на http://localhost:8080/
-
-![](img/004.png)
-
-**2. Використання Docker Compose.**
-
-Docker Compose — це інструмент для запуску багатоконтейнерних програм на Docker, визначених за допомогою формату файлу Compose. Файл Compose використовується для визначення того, як налаштовано один або кілька контейнерів, які складають вашу програму. Отримавши файл Compose, ви можете створити та запустити програму за допомогою однієї команди: docker compose up.
-
-Docker-compose.yml — це файл конфігурації для Docker Compose.
-
-Візьмемо, наприклад, простий веб-додаток: вам потрібен сервер, база даних і PHP. Тож ви можете встановити три контейнери докерів із Apache2, PHP і MySQL.
-
-Перевагою Docker Compose є легке налаштування. Вам не потрібно писати велику купу команд у Bash. Ви можете попередньо визначити його в docker-compose.yml:
-
-![](img/005.png)
-
-Переваги формату YAML:
-
-- Він більш зрозумілий людині. YAML дозволяє представляти складні структури даних у зручному для читання форматі.
-- Має строгий синтаксис. Специфікація YAML має мінімальний простір для гнучкості, що підвищує її надійність.
-- YAML є потужнішим, ніж JSON, коли справа доходить до визначення складних структур даних. Це надмножина JSON, що означає, що всі дійсні документи JSON також є дійсними YAML.
-
-Недоліки формату YML:
-
-- YAML в основному призначений для налаштування під час використання для обміну даними, багато функцій YAML втрачають свою привабливість.
-- Обробка файлів yaml для комп’ютера складніша і зазвичай не підтримується мовами програмування нативно
-
-**3. Створення HTML сторінки та занесення її в Docker Image.**
-
-
-
-
-
-
-Я створив html документ і Dockerfile
-
-![](img/006.png)
-
-Виконав docker build для будування image
-
-![](img/007.png)
-
-Готовий image:
-
-![](img/008.png)
-
-Запустив image через команду:
-
-docker run -d -p 80:80 lab3
-
-![](img/009.png)
-
-
-
-
-
-Вигляд запущеної сторінки
-
-![](img/010.png)
-
-Дальше я створив репозиторій на Dockerhub
-
-<https://hub.docker.com/repository/docker/istvanvari/lab3>
-![](img/011.png)
-
-Зробив логін через термінал
-
-![](img/012.png)
-
-
-
-
-
-
-
-Додав tag до docker image і виконав docker push у репозиторій
-
-![](img/013.png)
-
-Репозиторій після push:
-
-![](img/014.png)
-
-**4. Скачати Docker Image когось із групи і розвернути в себе контейнер з HTML сторінкою на порті 8086 ззовні.**
-
-https://github.com/stepandobr/labworks/blob/lab3/lab3/Lab3-dobrianskyi.md
-
-docker pull stepan103/lab3
-
-![](img/015.png)
-
-docker run -d -p 8086:80 stepan103/lab3
-
-![](img/016.png)
-
-![](img/017.png)
-
-<https://hub.docker.com/repository/docker/istvanvari/lab3>
+![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.006.png)
 
