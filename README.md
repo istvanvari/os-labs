@@ -3,55 +3,55 @@
 Факультет інформаційних технологій**
 
 
-**ЛАБОРАТОРНА РОБОТА № 4**
 
-**Тема:** Terraform
+<br><br>
+## **ЛАБОРАТОРНА РОБОТА №5**
+
+### **Тема:** Деплой проекту на AWS EC2
+
+
+
 <br><br><br><br>
 Виконав студент ІII курсу<br>
 Напрям: «Інженерія програмного забезпечення» <br>
 Варі Іштван Степанович
+
+**Ужгород-2022**
+
 <br><br><br>
 
-Create terraform scenario for provisioning infrastructure on GCP (or AWS) cloud Requirement 
+План:
 
-1. Create one instance (image: ubuntu 20.04) 
-
-2. Allow HTTP/HTTPS traffic on a NIC 
-
-3. Provision one SSH public key for created instance 
-
-4. Install Web Server (Apache HTTP Server / NGINX HTTP Server) via bash scenario
+1) Зареєструватись на AWS. 
+1) Створити інстанс EC2.
+1) Задеплоїти проект (може бути  html сторінка) і скинути посилання в звіт для можливості перегляду.
 
 **Хід роботи**
 
-1. Provision one SSH public key for created instance 
+Я створював інстанс EC2 за допомогою Terraform із попередньої лабораторної(№4).
+Посилання: <http://3.125.139.252/>
 
-There is one little thing we need to deal with on AWS manually. We need to **create a new IAM user for Terraform.**
+Для цього потрібно було послідовно виконати такі команди:
 
-This can be done in amazon console Services> Security, Identity, & Compliance > IAM
+terraform init
 
-![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.001.png)
+terraform validate
 
-Select users and Add users.
+terraform plan
 
-![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.002.png)
+terraform apply
 
-As a result we get a username, public key and secret key which we save, and will use later.
+В результаті створився інстанс:
+
+![](img/Aspose.Words.96d7fc84-566d-499c-8a86-5474c3cbc414.001.png)
+
+До інстансу я приєднався через ec2 instance connect, який дозволяє з легкістю отримати доступ до віртуальної машини через командний рядок у браузері:![](img/Aspose.Words.96d7fc84-566d-499c-8a86-5474c3cbc414.002.png)
 
 
-2. Allow HTTP traffic
+Вигляд сторінки:
 
-` `![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.003.png)
+![](img/Aspose.Words.96d7fc84-566d-499c-8a86-5474c3cbc414.003.png)
 
-3. Create one instance (image: ubuntu 20.04) 
+Посилання:
 
-![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.004.png)
-
-4. Bash scenario to Install Web Server (NGINX HTTP Server)
-
-![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.005.png)
-
-Final project structure
-
-![](img/Aspose.Words.478bfa1d-603d-4cee-be1e-5feb7c01a22b.006.png)
-
+<http://3.125.139.252/>
